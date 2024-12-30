@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
-import { ThemeProvider, THEME_ID, createTheme } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Button, Switch } from "@mui/material";
 import { motion } from "framer-motion";
 import img from "../../assets/dashboard/user.png";
@@ -145,15 +145,28 @@ const Navbar = () => {
           {/* mobile menu icons */}
 
           <div className="flex items-center md:hidden lg:hidden">
-            <button
-              type="button"
-              onClick={toggleMobileMenu}
-              className="text-gray-300 hover:text-white focus:outline-none"
-            >
-              <FaBars className="w-6 h-6 text-gray-300 hover:text-gray-800" />
-            </button>
+            {/* Conditionally render the Login button instead of the hamburger menu */}
+            {!user ? (
+              <Link to="/login">
+                <button
+                  type="button"
+                  className="text-gray-300 focus:outline-none hover:text-gray-800"
+                >
+                  <p className="text-white">Login</p>
+                </button>
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={toggleMobileMenu}
+                className="text-gray-300 hover:text-white focus:outline-none"
+              >
+                <FaBars className="w-6 h-6 text-gray-300 hover:text-gray-800" />
+              </button>
+            )}
           </div>
-          {isMobileMenuOpen && (
+
+          {isMobileMenuOpen && user && (
             <div className="absolute left-0 w-full text-white bg-gray-800 top-12 md:hidden lg:hidden">
               <ul className="flex flex-col items-center w-full">
                 <div className="w-full text-center">
@@ -171,13 +184,11 @@ const Navbar = () => {
                     <li className="p-2 hover:bg-gray-700">Classes</li>
                   </Link>
                 </div>
-
                 <div className="w-full text-center">
                   <Link to="/dashboard">
                     <li className="p-2 hover:bg-gray-700">Dashboard</li>
                   </Link>
                 </div>
-
                 <div className="w-full text-center">
                   <li className="p-2 hover:bg-gray-700">
                     <Button onClick={handleLogout}>
@@ -279,13 +290,12 @@ const Navbar = () => {
                 {user && (
                   <li>
                     <Link to="dashboard/my-profile">
-                    <img
-                      src={currentUser?.photoUrl  || `${img}` }
-                      alt=""
-                      className="h-[40px] rounded-full w-[40px]"
-                    />
+                      <img
+                        src={currentUser?.photoUrl || `${img}`}
+                        alt=""
+                        className="h-[40px] rounded-full w-[40px]"
+                      />
                     </Link>
-                   
                   </li>
                 )}
 
