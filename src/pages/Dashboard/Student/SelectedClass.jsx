@@ -8,7 +8,7 @@ import { MdDeleteSweep } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import Swal from 'sweetalert2';
 import { Pagination, ThemeProvider, createTheme } from '@mui/material';
-import { ScaleLoader } from 'react-spinners';
+import { FadeLoader } from 'react-spinners';
 
 const SelectedClass = () => {
     useTitle('Selected Class | Yoga Master Selected Class');
@@ -95,9 +95,10 @@ const SelectedClass = () => {
         })
         // Handle the delete action here
     };
-    if (loading) { // [2
-        return <div className='flex items-center justify-center w-full h-full'><ScaleLoader color="#FF1949" /></div>;
-    }
+    
+  if(loading){
+    return <div className="flex items-center justify-center h-screen"><FadeLoader color="#F44336" size={50}/></div>
+  }
     return (
         <div>
             <div className="my-6">
