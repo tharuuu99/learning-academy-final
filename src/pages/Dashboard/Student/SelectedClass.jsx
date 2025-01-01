@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useTitle } from '../../../hooks/useTitle';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useUser } from '../../../hooks/useUser';
 import moment from 'moment';
@@ -11,7 +10,6 @@ import { Pagination, ThemeProvider, createTheme } from '@mui/material';
 import { FadeLoader } from 'react-spinners';
 
 const SelectedClass = () => {
-    useTitle('Selected Class | Yoga Master Selected Class');
     const { currentUser } = useUser();
     const [loading, setLoading] = useState(true);
     const [classes, setClasses] = useState([]);
